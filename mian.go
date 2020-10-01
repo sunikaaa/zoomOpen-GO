@@ -78,12 +78,13 @@ func nowTimeLoop(wg *sync.WaitGroup, zoomData WeekdayData, schedule []int) {
 		hour := t.Hour()
 		getData := getTodayLecture(day, hour*60+minute, zoomData, schedule)
 		if getData.ID != "" {
-			maincmd := fmt.Sprintf(`start zoommtg:"//zoom.us/join?confno=%v&pwd=%v"`, getData.ID, getData.Pass)
-			cmd := exec.Command(`bash`, `-c`, maincmd)
+			maincmd := fmt.Sprintf(`zoommtg:"//zoom.us/join?confno=%v&pwd=%v"`, getData.ID, getData.Pass)
+			cmd := exec.Command(`rundll32.exe`, `url.dll,FileProtocolHandler`, maincmd)
 			fmt.Print(cmd)
 			err := cmd.Run()
 			if err != nil {
 				fmt.Println("err Occur", err.Error())
+				time.Sleep(10 * time.Second)
 				break
 			}
 		}

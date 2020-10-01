@@ -45,7 +45,6 @@ func getTodayLecture(day int, hourMinute int, timeTable WeekdayData, schedule []
 }
 
 func lectureTime(hourMinute int, timeTable []ZoomData, schedule []int) (result ZoomData) {
-	fmt.Println(timeTable)
 	for i, time := range schedule {
 		if time == hourMinute {
 			result = timeTable[i]
